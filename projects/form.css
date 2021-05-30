@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,300&display=swap');
+
+body{
+  font-family: 'Open Sans', sans-serif;
+  background-image: linear-gradient(to right,#9CECFB,#65C7F7);
+  text-align: center;
+  margin: 0;
+}
+form{
+  background-color: aliceblue;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 10px 10px;
+  border-radius: 5px ;
+  box-shadow: 2px 5px 10px rgba(18, 241, 29, 0.4);
+}
+.heading{
+  border-top: 2px;
+}
+.form-list{
+  display: block;
+  text-align: left;
+  padding: 10px 10px;
+  line-height: 40px;
+}
+.form-list input,
+.form-list textarea{
+  border-style: none;
+  border-radius: 2px;
+  border-bottom: 1px solid rgb(87, 255, 65);
+  padding: 10px 2px;
+  display: block;
+  width: 100%;
+}
+.form-list input[type=radio]{
+  display: inline-block;
+  width: auto;
+}
+label{
+  border-bottom: 5px;
+  display: block;
+  margin: 0 ;
+}
+select{
+  padding:10px 10px;
+}
+button{
+  display: block;
+  padding: 10px;
+  border-radius: 3px;
+  border-style: none;
+  width: 100%;
+  background-color: rgb(55, 238, 55);
+}
