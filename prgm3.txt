@@ -1,0 +1,91 @@
+package com.example.example5;
+import android.app.Activity;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+public class MainActivity extends Activity implements OnClickListener, 
+AdapterView.OnItemSelectedListener
+{
+ EditText name, usn, email;
+ Button Insert;
+ Spinner spinner;
+ SQLiteDatabase db;
+ String[] course = { "EC", "CSE", "ME", "BCA", "Diploma"};
+ /** Called when the activity is first created. */
+ @Override
+ public void onCreate(Bundle savedInstanceState)
+ {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity_main);
+ name =(EditText)findViewById(R.id.Medicine);
+ usn =(EditText)findViewById(R.id.meddate);
+ email =(EditText)findViewById(R.id.medtime);
+ Insert=(Button)findViewById(R.id.Insert);
+ spinner=(Spinner) findViewById(R.id.course_offered);
+ Insert.setOnClickListener(this);
+ // Creating database and table
+ db=openOrCreateDatabase("StudentDBA", Context.MODE_PRIVATE, null);
+ db.execSQL("CREATE TABLE IF NOT EXISTS student(name VARCHAR,usn VARCHAR,email 
+VARCHAR);");
+ //Creating the ArrayAdapter instance having the country list
+ ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item, 
+course);
+ aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+ //Setting the ArrayAdapter data on the Spinner
+ spinner.setAdapter(aa);
+ }
+ public void onClick(View view)
+ {
+ // Inserting a record to the Student table
+ if(view==Insert)
+ {
+ // Checking for empty fields
+ if(name.getText().toString().trim().length()==0||
+ usn.getText().toString().trim().length()==0||
+ email.getText().toString().trim().length()==0)
+ {
+ showMessage("Error", "Please enter all values");
+ return;
+ }
+ db.execSQL("INSERT INTO student VALUES('"+ name.getText()+"','"+ 
+usn.getText()+
+ "','"+ email.getText()+"');");
+ showMessage("Success", "Record added");
+ clearText();
+ }
+ }
+ public void showMessage(String title,String message)
+ {
+ Builder builder=new Builder(this);
+ builder.setCancelable(true);
+ builder.setTitle(title);
+
+builder.setMessage(message);
+ builder.show();
+ }
+ public void clearText()
+ {
+ name.setText("");
+ usn.setText("");
+ email.setText("");
+ name.requestFocus();
+ }
+ @Override
+ public void onItemSelected(AdapterView<?> parent, android.view.View view, int 
+position, long id) {
+ Toast.makeText(getApplicationContext(), course[position] , 
+Toast.LENGTH_LONG).show();
+ }
+ @Override
+ public void onNothingSelected(AdapterView<?> parent) {
+ }
+}
